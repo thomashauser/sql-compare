@@ -128,21 +128,24 @@ namespace sql_compare
 
         #region Private Methods
 
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             try
             {
                 if (!TryGetSettings(args, out var original, out var compare, out var sqlConnectionString))
                 {
                     Console.WriteLine("Usage: sql-compare.exe myoriginal.sql mychanged.sql \"sql connection string\"");
-                    return;
+                    return 1;
                 }
 
                 Process(original, compare, sqlConnectionString);
+
+                return 0;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: {0}", ex.Message);
+                return 2;
             }
         }
 
